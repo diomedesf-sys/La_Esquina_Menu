@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>La Esquina Gastrobar – Menú</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header id="global-nav" class="hidden">
+    <button class="nav-btn" id="nav-back" aria-label="Volver">&#x25C0;</button>
+    <div class="nav-center">
+      LA ESQUINA<br>GASTROBAR
+    </div>
+    <button class="nav-btn" id="nav-home" aria-label="Inicio">&#x2302;</button>
+  </header>
+
+  <main id="main-stage">
+
+    <!-- HOME SCREEN -->
+    <section id="home-screen" class="app-view active">
+      <div class="home-frame"></div>
+      <div class="home-content">
+        <p class="pulse-cta" id="home-cta">DESCUBRE NUESTRO MENÚ</p>
+        <img src="images/Logo_Esquina.png" alt="La Esquina Gastrobar" class="main-logo">
+        <p class="legal-footer">*Los precios no incluyen impuestos</p>
+      </div>
+    </section>
+
+    <!-- FLIP TRANSITION -->
+    <section id="flip-transition" class="app-view">
+      <div class="home-frame"></div>
+      <div class="home-content">
+        <img src="images/Logo_Esquina.png" alt="" class="main-logo" aria-hidden="true">
+      </div>
+    </section>
+
+    <!-- CATEGORIES SCREEN -->
+    <section id="categories-screen" class="app-view">
+      <div class="categories-scroll" id="categories-scroll">
+        <div class="categories-grid" id="categories-grid"></div>
+      </div>
+    </section>
+
+    <!-- ITEMS SCREEN -->
+    <section id="items-screen" class="app-view">
+      <div class="snap-container" id="items-container"></div>
+    </section>
+
+    <!-- DESCRIPTION SCREEN -->
+    <section id="description-screen" class="app-view">
+      <div class="description-inner" id="description-inner"></div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
