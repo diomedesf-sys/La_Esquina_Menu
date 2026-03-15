@@ -14,7 +14,11 @@
   --font-serif:  'Playfair Display', Georgia, serif;
   --font-ui:     'Outfit', sans-serif;
   --nav-h:       56px;
-  --transition-dur: 1500ms;
+
+  /* ---- FLIP TUNING ----
+     These must stay in sync with FLIP_DURATION_MS in app.js.
+     JS overrides --flip-dur at runtime, but this is the fallback. */
+  --flip-dur: 900ms;
 }
 
 /* ---- RESET ---- */
@@ -44,10 +48,10 @@ button {
 }
 
 /* ============================================================
-   CSS BACKGROUNDS (no image files needed)
+   CSS BACKGROUNDS
    ============================================================ */
 
-/* Background 1 — diagonal pinstripe on near-black */
+/* Background 1 — diagonal pinstripe */
 .bg-1 {
   background-color: var(--bg-card);
   background-image:
@@ -60,18 +64,16 @@ button {
     );
 }
 
-/* Background 2 — dark warm vignette with golden inner glow */
+/* Background 2 — dark warm vignette */
 .bg-2 {
-  background-color: #000000;
+  background-color: #000;
   background-image:
-    /* outer dark vignette */
     radial-gradient(
       ellipse 110% 90% at 50% 50%,
       transparent 0%,
-      rgba(0, 0, 0, 0.72) 65%,
-      rgba(0, 0, 0, 0.95) 100%
+      rgba(0,0,0,0.72) 65%,
+      rgba(0,0,0,0.95) 100%
     ),
-    /* warm amber center glow — the "lit from within" effect */
     radial-gradient(
       ellipse 65% 55% at 50% 52%,
       #2a1e08 0%,
@@ -126,26 +128,27 @@ button {
   transition: opacity 0.3s ease;
 }
 
-#global-nav.hidden {
-  display: none;
-}
+#global-nav.hidden  { display: none; }
+#global-nav.fading  { opacity: 0; pointer-events: none; }
 
-#global-nav.fading {
-  opacity: 0;
-  pointer-events: none;
-}
-
+/* Back button — thin elegant arrow matching the items hint style */
 .nav-btn {
   color: var(--gold);
-  opacity: 0.5;
-  font-size: 1.1rem;
+  opacity: 0.55;
+  font-size: 1.4rem;       /* slightly larger for touch target */
+  font-weight: 300;        /* thin weight matches the → on items screen */
   padding: 8px 12px;
   transition: opacity 0.2s ease;
   line-height: 1;
+  letter-spacing: -0.05rem;
 }
 
-.nav-btn:active {
-  opacity: 1;
+.nav-btn:active { opacity: 1; }
+
+/* Use a proper thin arrow for back — override the HTML entity via font */
+#nav-back {
+  font-size: 1.6rem;
+  font-weight: 200;
 }
 
 .nav-center {
@@ -165,17 +168,19 @@ button {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  /* bg-2 applied by JS */
 }
 
+/* Override bg-2 for home + flip: same gradient, no change needed */
 #home-screen.bg-2,
 #flip-transition.bg-2 {
-  background-color: #000000;
+  background-color: #000;
   background-image:
     radial-gradient(
       ellipse 110% 90% at 50% 50%,
       transparent 0%,
-      rgba(0, 0, 0, 0.72) 65%,
-      rgba(0, 0, 0, 0.95) 100%
+      rgba(0,0,0,0.72) 65%,
+      rgba(0,0,0,0.95) 100%
     ),
     radial-gradient(
       ellipse 65% 55% at 50% 52%,
@@ -186,7 +191,7 @@ button {
     );
 }
 
-/* Golden frame inset border — matches the mockup's rounded warm gold line */
+/* Golden frame border */
 .home-frame {
   position: absolute;
   inset: 18px;
@@ -199,53 +204,81 @@ button {
     0 0 12px rgba(242, 169, 0, 0.08);
 }
 
+/* Home content: distribute vertically so CTA sits between
+   the top frame line and the logo, with the legal note near the bottom */
 .home-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  position: relative;
-  z-index: 2;
-  gap: 0;
+  /* space-between pushes CTA to top-ish, logo to center, legal to bottom */
+  justify-content: space-evenly;
+  padding: 10dvh 24px 8dvh;
 }
 
 /* "Descubre nuestro menú" */
 .pulse-cta {
   font-family: var(--font-ui);
   font-weight: 300;
-  font-size: clamp(0.75rem, 3.5vw, 1rem);
+  font-size: clamp(0.8rem, 3.8vw, 1.05rem);
   letter-spacing: 0.22rem;
   color: var(--gold);
   text-align: center;
-  margin-bottom: 18px;
   animation: breathing 3.5s infinite ease-in-out;
   transition: opacity 0.4s ease;
+  /* sits in the upper third, above the logo */
+  order: 1;
 }
 
 @keyframes breathing {
-  0%, 100% { opacity: 0.25; }
-  50%       { opacity: 0.9; }
+  0%, 100% { opacity: 0.2; }
+  50%       { opacity: 0.95; }
 }
 
-/* Logo — blend naturally into dark background */
+/* Logo wrapper — glow effect concentrated behind the image */
+.logo-wrapper {
+  order: 2;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-wrapper::before {
+  /* warm amber glow behind the logo — the "lit from within" effect */
+  content: "";
+  position: absolute;
+  inset: -18% -12%;
+  background: radial-gradient(
+    ellipse 80% 70% at 50% 55%,
+    rgba(180, 110, 10, 0.22) 0%,
+    rgba(120, 70, 5, 0.12) 45%,
+    transparent 75%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
 .main-logo {
-  width: clamp(200px, 68vw, 300px);
+  position: relative;
+  z-index: 1;
+  width: clamp(210px, 72vw, 310px);
   height: auto;
   display: block;
-  mix-blend-mode: lighten; /* makes black areas of PNG transparent on dark bg */
+  mix-blend-mode: lighten;
 }
 
-/* Tax note */
+/* Tax note — more visible, with breathing room from frame edges */
 .legal-footer {
-  position: absolute;
-  bottom: 28px;
-  right: 24px;
-  font-size: 0.55rem;
+  order: 3;
+  font-size: 0.6rem;
   color: var(--text-gray);
-  opacity: 0.35;
-  letter-spacing: 0.05rem;
+  opacity: 0.7;           /* was 0.35 — now clearly readable */
+  letter-spacing: 0.06rem;
+  text-align: center;     /* centered instead of pinned to corner */
 }
 
 /* ============================================================
@@ -257,7 +290,8 @@ button {
 }
 
 #flip-transition.active {
-  animation: flip-card var(--transition-dur) cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+  /* duration driven by --flip-dur, set by JS to stay in sync */
+  animation: flip-card var(--flip-dur) cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
   transform-origin: center center;
 }
 
@@ -268,6 +302,8 @@ button {
 
 /* ============================================================
    CATEGORIES SCREEN
+   — No scroll snap: free scroll feels more natural with 11 items
+   — Padding ensures cards stay inside the visible safe area
    ============================================================ */
 #categories-screen {
   padding-top: var(--nav-h);
@@ -277,27 +313,21 @@ button {
   width: 100%;
   height: 100%;
   overflow-y: auto;
-  scroll-snap-type: y mandatory;
+  /* scroll-snap removed intentionally */
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
 }
 
-.categories-scroll::-webkit-scrollbar {
-  display: none;
-}
+.categories-scroll::-webkit-scrollbar { display: none; }
 
 .categories-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  /* card height: roughly half the usable viewport so 3 rows show comfortably */
+  grid-auto-rows: calc((100dvh - var(--nav-h) - 24px) / 3);
   gap: 10px;
-  padding: 12px;
-  /* rows sized so exactly 3 rows fill one page */
-  grid-auto-rows: calc((100dvh - var(--nav-h) - 56px) / 3);
-}
-
-/* snap anchor every 3 rows (page of 6) */
-.categories-grid .snap-anchor {
-  display: none; /* JS will inject these */
+  /* horizontal padding keeps content inside the visible screen (no frame clip) */
+  padding: 12px 16px 24px;
 }
 
 /* Category card */
@@ -311,68 +341,54 @@ button {
   display: flex;
   align-items: flex-end;
   transition: border-color 0.2s ease;
+  /* ensure card fills its grid cell fully */
+  min-height: 0;
 }
 
-.category-card:active {
-  border-color: var(--gold);
-}
+.category-card:active { border-color: var(--gold); }
 
-/* Photo layer */
 .cat-photo {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.55;
+  opacity: 0.6;
   transition: opacity 0.3s ease;
 }
 
-.category-card:active .cat-photo {
-  opacity: 0.7;
-}
+.category-card:active .cat-photo { opacity: 0.75; }
 
-/* Placeholder shown when no image */
 .cat-placeholder {
   position: absolute;
   inset: 0;
-  background-image:
-    radial-gradient(
-      ellipse 80% 70% at 50% 50%,
-      #1e180c 0%,
-      #0a0906 100%
-    );
+  background-image: radial-gradient(
+    ellipse 80% 70% at 50% 50%,
+    #1e180c 0%,
+    #0a0906 100%
+  );
 }
 
-/* Dark gradient overlay so text is always readable */
 .cat-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(0,0,0,0.82) 0%,
-    rgba(0,0,0,0.3) 55%,
-    rgba(0,0,0,0.1) 100%
+    rgba(0,0,0,0.85) 0%,
+    rgba(0,0,0,0.3) 50%,
+    rgba(0,0,0,0.05) 100%
   );
 }
 
-/* Card label */
 .cat-label {
   position: relative;
   z-index: 2;
-  padding: 10px 12px 12px;
+  padding: 10px 12px 13px;
   font-family: var(--font-serif);
   font-size: clamp(0.8rem, 3.2vw, 1rem);
   color: var(--text-white);
   line-height: 1.2;
   text-shadow: 0 1px 6px rgba(0,0,0,0.9);
-}
-
-/* scroll page snap row helper — each page-of-6 starts on a new snap point */
-.page-snap-row {
-  grid-column: 1 / -1;
-  height: 0;
-  scroll-snap-align: start;
 }
 
 /* ============================================================
@@ -392,11 +408,8 @@ button {
   scrollbar-width: none;
 }
 
-.snap-container::-webkit-scrollbar {
-  display: none;
-}
+.snap-container::-webkit-scrollbar { display: none; }
 
-/* One dish per "page" */
 .dish-view {
   width: 100%;
   height: calc(100dvh - var(--nav-h));
@@ -447,6 +460,9 @@ button {
 
 /* ============================================================
    DESCRIPTION SCREEN
+   — Larger text, flex layout fills the screen properly,
+     price always anchored to bottom
+   — Side padding keeps content inside safe area (no frame clip)
    ============================================================ */
 #description-screen {
   padding-top: var(--nav-h);
@@ -456,52 +472,57 @@ button {
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 28px 24px 36px;
+  /* horizontal padding slightly wider to keep inside screen */
+  padding: 32px 22px 40px;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  gap: 0;
 }
 
 .desc-category {
   font-family: var(--font-ui);
   font-weight: 400;
-  font-size: 0.7rem;
-  letter-spacing: 0.2rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.22rem;
   color: var(--gold);
   text-transform: uppercase;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .desc-name {
   font-family: var(--font-serif);
-  font-size: clamp(1.6rem, 6vw, 2.2rem);
+  /* larger — fills the screen better */
+  font-size: clamp(1.9rem, 7.5vw, 2.6rem);
   line-height: 1.1;
-  margin-bottom: 18px;
+  margin-bottom: 22px;
 }
 
 .desc-text {
   font-family: var(--font-ui);
   font-weight: 300;
-  font-size: 0.95rem;
-  line-height: 1.65;
+  /* larger body text — was 0.95rem */
+  font-size: clamp(1rem, 4vw, 1.2rem);
+  line-height: 1.7;
   color: var(--text-gray);
+  /* flex: 1 pushes the price to the bottom */
   flex: 1;
 }
 
-/* Sizes list (e.g. Parrillada Mixta) */
+/* Sizes list */
 .desc-sizes {
-  margin-top: 16px;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .desc-size-row {
   display: flex;
   justify-content: space-between;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--text-gray);
   border-bottom: 1px solid rgba(242, 169, 0, 0.1);
-  padding-bottom: 6px;
+  padding-bottom: 8px;
 }
 
 .desc-size-label {
@@ -509,19 +530,19 @@ button {
   color: var(--text-white);
 }
 
-/* Price */
+/* Price — anchored to bottom via the flex: 1 on desc-text above */
 .desc-price {
-  margin-top: 20px;
+  margin-top: 24px;
   font-family: var(--font-ui);
   font-weight: 700;
-  font-size: clamp(1.8rem, 7vw, 2.4rem);
+  font-size: clamp(2rem, 8vw, 2.8rem);
   text-align: right;
   color: var(--text-white);
   letter-spacing: -0.02rem;
 }
 
 .desc-price.consultar {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   color: var(--gold);
   letter-spacing: 0.1rem;
   opacity: 0.7;

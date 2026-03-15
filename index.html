@@ -4,13 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>La Esquina Gastrobar – Menú</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <header id="global-nav" class="hidden">
-    <button class="nav-btn" id="nav-back" aria-label="Volver">&#x25C0;</button>
+    <!-- Thin elegant arrow — matches the → used on the items screen hint -->
+    <button class="nav-btn" id="nav-back" aria-label="Volver">&#8592;</button>
     <div class="nav-center">
       LA ESQUINA<br>GASTROBAR
     </div>
@@ -24,16 +26,20 @@
       <div class="home-frame"></div>
       <div class="home-content">
         <p class="pulse-cta" id="home-cta">DESCUBRE NUESTRO MENÚ</p>
-        <img src="images/Logo_Esquina.png" alt="La Esquina Gastrobar" class="main-logo">
+        <div class="logo-wrapper">
+          <img src="images/Logo_Esquina.png" alt="La Esquina Gastrobar" class="main-logo">
+        </div>
         <p class="legal-footer">*Los precios no incluyen impuestos</p>
       </div>
     </section>
 
-    <!-- FLIP TRANSITION -->
+    <!-- FLIP TRANSITION — shows logo briefly at the midpoint of each navigation -->
     <section id="flip-transition" class="app-view">
       <div class="home-frame"></div>
       <div class="home-content">
-        <img src="images/Logo_Esquina.png" alt="" class="main-logo" aria-hidden="true">
+        <div class="logo-wrapper">
+          <img src="images/Logo_Esquina.png" alt="" class="main-logo" aria-hidden="true">
+        </div>
       </div>
     </section>
 

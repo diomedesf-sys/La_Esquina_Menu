@@ -2,40 +2,45 @@
 // LA ESQUINA GASTROBAR — MENU APP
 // ============================================================
 
+// ---- TUNEABLE CONSTANTS ----
+// To adjust the flip feel, change these two values:
+var FLIP_DURATION_MS  = 900;   // total flip duration in milliseconds
+var FLIP_MIDPOINT_MS  = 450;   // when content swaps (logo is visible between this and FLIP_DURATION_MS)
+
 // ---- STATE ----
-let MENU_DATA        = null;
-let currentSection   = null;
-let currentItemIndex = 0;
-let isTransitionRunning = false;
-let categoriesBuilt  = false;
+var MENU_DATA           = null;
+var currentSection      = null;
+var currentItemIndex    = 0;
+var isTransitionRunning = false;
+var categoriesBuilt     = false;
 
 // Navigation history stack for back button
-const navStack = [];
+var navStack = [];
 
 // ---- UTILS ----
-const qs = sel => document.querySelector(sel);
+var qs = function(sel) { return document.querySelector(sel); };
 
 function formatPrice(amount) {
   if (amount == null || isNaN(Number(amount))) return null;
-  return `RD$${Number(amount).toLocaleString("es-DO")}`;
+  return "RD$" + Number(amount).toLocaleString("es-DO");
 }
 
 // ---- DATA ----
 async function loadMenuData() {
-  const res  = await fetch("menu-data.json");
-  MENU_DATA  = await res.json();
+  var res = await fetch("menu-data.json");
+  MENU_DATA = await res.json();
 }
 
 // ---- VIEW SWITCHING ----
 function showView(id) {
-  document.querySelectorAll(".app-view").forEach(v => {
+  document.querySelectorAll(".app-view").forEach(function(v) {
     v.classList.toggle("active", v.id === id);
   });
 }
 
 // ---- NAV BAR ----
 function setNavVisible(visible, instant) {
-  const nav = qs("#global-nav");
+  var nav = qs("#global-nav");
   if (!nav) return;
   if (visible) {
     nav.classList.remove("hidden", "fading");
@@ -44,35 +49,60 @@ function setNavVisible(visible, instant) {
     nav.classList.remove("fading");
   } else {
     nav.classList.add("fading");
-    setTimeout(() => nav.classList.add("hidden"), 320);
+    setTimeout(function() { nav.classList.add("hidden"); }, 320);
   }
 }
 
+// ---- RESET HOME CTA ----
+// Called every time we navigate back to home so the pulse text reappears
+function resetHomeCta() {
+  var homeCta = qs("#home-cta");
+  if (!homeCta) return;
+  homeCta.style.animation = "none";
+  homeCta.style.opacity   = "";
+  // Force reflow so the animation restart takes effect
+  void homeCta.offsetWidth;
+  homeCta.style.animation = "";
+}
+
 // ---- FLIP TRANSITION ----
+// Tuning guide:
+//   FLIP_DURATION_MS  — change line 7 above. Lower = snappier, higher = more dramatic
+//   FLIP_MIDPOINT_MS  — change line 8 above. Controls how long logo is visible mid-flip
+//                       Should always be less than FLIP_DURATION_MS
+//   The CSS animation duration is set inline here to stay in sync with JS timing
 function navigateWithFlip(targetViewId, afterTransition) {
   if (isTransitionRunning) return;
   isTransitionRunning = true;
 
   setNavVisible(false);
 
-  // Force CSS animation restart on the flip element
-  const flipEl = qs("#flip-transition");
+  // Show flip screen and restart its CSS animation at the new duration
+  var flipEl = qs("#flip-transition");
   flipEl.classList.remove("active");
-  void flipEl.offsetWidth; // trigger reflow
+  void flipEl.offsetWidth; // reflow to restart animation
+  // Override animation duration to match our JS constant
+  flipEl.style.setProperty("--flip-dur", FLIP_DURATION_MS + "ms");
   showView("flip-transition");
 
-  setTimeout(() => {
+  // At midpoint: swap to target screen (logo still briefly visible as card turns)
+  setTimeout(function() {
     showView(targetViewId);
-    isTransitionRunning = false;
 
     if (targetViewId === "home-screen") {
       setNavVisible(false, true);
+      resetHomeCta();
     } else {
       setNavVisible(true);
     }
 
     if (typeof afterTransition === "function") afterTransition();
-  }, 1500);
+  }, FLIP_MIDPOINT_MS);
+
+  // After full duration: unlock input
+  setTimeout(function() {
+    isTransitionRunning = false;
+  }, FLIP_DURATION_MS);
 }
 
 // ---- CATEGORIES SCREEN ----
@@ -80,54 +110,47 @@ function buildCategories() {
   if (categoriesBuilt) return; // build DOM only once
   categoriesBuilt = true;
 
-  const grid = qs("#categories-grid");
+  var grid = qs("#categories-grid");
   if (!grid || !MENU_DATA) return;
 
   grid.innerHTML = "";
 
-  MENU_DATA.sections.forEach((section, index) => {
-    // Insert a scroll-snap anchor before every group of 6 cards
-    if (index % 6 === 0) {
-      const snapRow = document.createElement("div");
-      snapRow.className = "page-snap-row";
-      grid.appendChild(snapRow);
-    }
-
-    const card = document.createElement("button");
+  MENU_DATA.sections.forEach(function(section) {
+    var card = document.createElement("button");
     card.className = "category-card";
     card.type      = "button";
 
     // Background: real photo or CSS vignette placeholder
     if (section.categoryImage) {
-      const img   = document.createElement("img");
+      var img      = document.createElement("img");
       img.className = "cat-photo";
       img.src       = section.categoryImage;
       img.alt       = "";
       img.loading   = "lazy";
       card.appendChild(img);
     } else {
-      const ph = document.createElement("div");
+      var ph = document.createElement("div");
       ph.className = "cat-placeholder";
       card.appendChild(ph);
     }
 
     // Overlay for text legibility
-    const overlay = document.createElement("div");
+    var overlay = document.createElement("div");
     overlay.className = "cat-overlay";
     card.appendChild(overlay);
 
     // Label
-    const label = document.createElement("span");
+    var label = document.createElement("span");
     label.className   = "cat-label";
     label.textContent = section.name;
     card.appendChild(label);
 
-    card.addEventListener("click", () => {
+    card.addEventListener("click", function() {
       if (isTransitionRunning) return;
       currentSection   = section;
       currentItemIndex = 0;
       navStack.push("items-screen");
-      navigateWithFlip("items-screen", () => {
+      navigateWithFlip("items-screen", function() {
         buildItemsForSection();
         scrollToCurrentItem(true);
       });
@@ -139,37 +162,37 @@ function buildCategories() {
 
 // ---- ITEMS SCREEN ----
 function buildItemsForSection() {
-  const container = qs("#items-container");
+  var container = qs("#items-container");
   if (!container || !currentSection || !currentSection.items) return;
 
   container.innerHTML = "";
 
-  currentSection.items.forEach((item, index) => {
-    const view = document.createElement("div");
+  currentSection.items.forEach(function(item, index) {
+    var view = document.createElement("div");
     view.className     = "dish-view";
     view.dataset.index = index;
 
     // Photo wrapper
-    const imgWrapper = document.createElement("div");
+    var imgWrapper = document.createElement("div");
     imgWrapper.className = "dish-image-wrapper";
 
-    const img    = document.createElement("img");
-    const imgSrc = typeof item.image === "string"
+    var img    = document.createElement("img");
+    var imgSrc = typeof item.image === "string"
       ? item.image
       : (item.image && item.image.src ? item.image.src : "");
-    const imgAlt = (item.image && item.image.alt) ? item.image.alt : item.name;
+    var imgAlt = (item.image && item.image.alt) ? item.image.alt : item.name;
     img.src     = imgSrc;
     img.alt     = imgAlt;
     img.loading = "lazy";
     imgWrapper.appendChild(img);
 
     // Name
-    const nameEl = document.createElement("div");
+    var nameEl = document.createElement("div");
     nameEl.className   = "dish-name";
     nameEl.textContent = item.name;
 
     // Hint
-    const hint = document.createElement("div");
+    var hint = document.createElement("div");
     hint.className   = "dish-hint";
     hint.textContent = "Tocar para ver detalles \u2192";
 
@@ -177,7 +200,7 @@ function buildItemsForSection() {
     view.appendChild(nameEl);
     view.appendChild(hint);
 
-    view.addEventListener("click", () => {
+    view.addEventListener("click", function() {
       if (isTransitionRunning) return;
       currentItemIndex = index;
       navStack.push("description-screen");
@@ -189,16 +212,16 @@ function buildItemsForSection() {
 }
 
 function scrollToCurrentItem(instant) {
-  const container = qs("#items-container");
+  var container = qs("#items-container");
   if (!container) return;
-  const target = container.querySelector(".dish-view[data-index=\"" + currentItemIndex + "\"]");
+  var target = container.querySelector(".dish-view[data-index=\"" + currentItemIndex + "\"]");
   if (target) {
     target.scrollIntoView({ behavior: instant ? "instant" : "smooth", block: "start" });
   }
 }
 
 function attachScrollTracker() {
-  const container = qs("#items-container");
+  var container = qs("#items-container");
   if (!container) return;
   container.addEventListener("scroll", function() {
     var h = container.clientHeight;
@@ -208,10 +231,10 @@ function attachScrollTracker() {
 
 // ---- DESCRIPTION SCREEN ----
 function buildDescription() {
-  const box = qs("#description-inner");
+  var box = qs("#description-inner");
   if (!box || !currentSection || !currentSection.items) return;
 
-  const item = currentSection.items[currentItemIndex];
+  var item = currentSection.items[currentItemIndex];
   if (!item) return;
 
   box.innerHTML = "";
@@ -232,7 +255,7 @@ function buildDescription() {
   box.appendChild(nameEl);
   box.appendChild(textEl);
 
-  // Sizes variant
+  // Sizes variant (e.g. Parrillada Mixta)
   if (Array.isArray(item.sizes) && item.sizes.length > 0) {
     var sizesList = document.createElement("div");
     sizesList.className = "desc-sizes";
@@ -294,7 +317,7 @@ function goBack() {
 document.addEventListener("DOMContentLoaded", async function() {
   await loadMenuData();
 
-  // Apply CSS background classes to screens
+  // Apply CSS background classes
   qs("#home-screen").classList.add("bg-2");
   qs("#flip-transition").classList.add("bg-2");
   qs("#categories-screen").classList.add("bg-1");
@@ -303,11 +326,12 @@ document.addEventListener("DOMContentLoaded", async function() {
   attachScrollTracker();
 
   var homeScreen = qs("#home-screen");
-  var homeCta    = qs("#home-cta");
 
-  // HOME → CATEGORIES
+  // HOME tap → categories
   homeScreen.addEventListener("click", function() {
     if (isTransitionRunning) return;
+    // Hide the CTA text before leaving home
+    var homeCta = qs("#home-cta");
     if (homeCta) {
       homeCta.style.animation = "none";
       homeCta.style.opacity   = "0";
