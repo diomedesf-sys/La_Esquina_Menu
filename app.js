@@ -3,9 +3,14 @@
 // ============================================================
 
 // ---- TUNEABLE CONSTANTS ----
-// To adjust the flip feel, change these two values:
-var FLIP_DURATION_MS = 700; // total flip duration in milliseconds
-var FLIP_MIDPOINT_MS = 450; // when content swaps (logo is visible between this and FLIP_DURATION_MS)
+// To adjust the flip feel, change this value:
+var FLIP_DURATION_MS = 600; // total flip duration in milliseconds
+// HOW THE FLIP WORKS:
+//   Full 360deg rotation — logo faces forward at start AND end.
+//   Logo is visible through the middle ~180deg of the turn.
+//   Screen swaps AFTER the full rotation completes (no mid-turn cut).
+//   To make faster: lower FLIP_DURATION_MS (try 600-700)
+//   To make slower: raise FLIP_DURATION_MS (try 1000-1200)
 
 // ---- STATE ----
 var MENU_DATA = null;
@@ -70,11 +75,8 @@ function resetHomeCta() {
 }
 
 // ---- FLIP TRANSITION ----
-// Tuning guide:
-//   FLIP_DURATION_MS  — change line 7 above. Lower = snappier, higher = more dramatic
-//   FLIP_MIDPOINT_MS  — change line 8 above. Controls how long logo is visible mid-flip
-//                       Should always be less than FLIP_DURATION_MS
-//   The CSS animation duration is set inline here to stay in sync with JS timing
+// Tuning guide: change FLIP_DURATION_MS at line 7 above.
+// The CSS animation duration is set inline here to stay in sync with JS timing.
 function navigateWithFlip(targetViewId, afterTransition) {
   if (isTransitionRunning) return;
   isTransitionRunning = true;
@@ -89,9 +91,11 @@ function navigateWithFlip(targetViewId, afterTransition) {
   flipEl.style.setProperty("--flip-dur", FLIP_DURATION_MS + "ms");
   showView("flip-transition");
 
-  // At midpoint: swap to target screen (logo still briefly visible as card turns)
+  // After FULL rotation completes: swap screen and unlock input
+  // The logo returns to front-facing before anything changes — no unsettling cut
   setTimeout(function () {
     showView(targetViewId);
+    isTransitionRunning = false;
 
     if (targetViewId === "home-screen") {
       setNavVisible(false, true);
@@ -101,11 +105,6 @@ function navigateWithFlip(targetViewId, afterTransition) {
     }
 
     if (typeof afterTransition === "function") afterTransition();
-  }, FLIP_MIDPOINT_MS);
-
-  // After full duration: unlock input
-  setTimeout(function () {
-    isTransitionRunning = false;
   }, FLIP_DURATION_MS);
 }
 
