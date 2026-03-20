@@ -231,25 +231,8 @@ button {
   letter-spacing: 0.22rem;
   color: var(--gold);
   text-align: center;
-  animation: cta-cycle 8s infinite linear;
-  transition: opacity 0.4s ease;
-}
-
-/* One full cycle — 8 s total:
-   0 → 1.5 s  : fade in  (0 → peak)
-   1.5 → 3 s  : fade out (peak → 0)
-   3 → 5 s    : silent pause — JS swaps text here
-   5 → 6.5 s  : fade in  (0 → peak)
-   6.5 → 8 s  : fade out (peak → 0), loop
-   Percentages: 0 %=0 s, 18.75 %=1.5 s, 37.5 %=3 s,
-                62.5 %=5 s, 81.25 %=6.5 s, 100 %=8 s  */
-@keyframes cta-cycle {
-  0%      { opacity: 0; }
-  22.22%  { opacity: 0.9; }
-  44.44%   { opacity: 0; }
-  55.55%   { opacity: 0; }
-  77.77%  { opacity: 0.9; }
-  100%    { opacity: 0; }
+  opacity: 0;                           /* JS drives this */
+  transition: opacity 1.5s ease-in-out; /* duration of each fade */
 }
 
 /* Logo wrapper — glow effect concentrated behind the image */

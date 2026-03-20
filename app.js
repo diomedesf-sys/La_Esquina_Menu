@@ -61,45 +61,77 @@ function setNavVisible(visible, instant) {
   }
 }
 
+// ---- HOME CTA TIMING ----
+// All values are in milliseconds. The sequence is:
+//   phrase 1 fades in → peaks → fades out → silence → phrase 2 fades in → peaks → fades out → silence → repeat
+//
+// PHRASE 1 — timeline from the moment phrase 1 starts
+var P1_FADE_IN  = 0;     // ms — phrase 1 starts becoming visible
+var P1_PEAK     = 2000;  // ms — phrase 1 reaches full opacity
+var P1_GONE     = 4000;  // ms — phrase 1 has fully disappeared
+// SILENCE after phrase 1
+var SILENCE_1   = 1000;  // ms — no words on screen before phrase 2
+// PHRASE 2 — timeline from the moment phrase 2 starts
+var P2_FADE_IN  = 0;     // ms — phrase 2 starts becoming visible (almost always 0)
+var P2_PEAK     = 2000;  // ms — phrase 2 reaches full opacity
+var P2_GONE     = 4000;  // ms — phrase 2 has fully disappeared
+// SILENCE after phrase 2
+var SILENCE_2   = 1000;  // ms — no words on screen before phrase 1 returns
+
 // ---- RESET HOME CTA ----
-// Called every time we navigate back to home so the pulse text reappears
-// and the phrase sequence restarts from the beginning.
-var CTA_PHRASES  = ["DESCUBRE NUESTRO MENÚ", "AL PULSAR LA PANTALLA"];
-var ctaPhraseIdx = 0;
-var ctaSwapTimer = null;
+var CTA_PHRASES = ["DESCUBRE NUESTRO MENÚ", "AL PULSAR LA PANTALLA"];
+var ctaTimers   = [];
 
 function resetHomeCta() {
-  var homeCta = qs("#home-cta");
-  if (!homeCta) return;
+  var el = qs("#home-cta");
+  if (!el) return;
+  ctaTimers.forEach(function(t) { clearTimeout(t); });
+  ctaTimers = [];
+  el.textContent   = CTA_PHRASES[0];
+  el.style.opacity = "0";
+  ctaTimers.push(setTimeout(runPhrase1, 50));
+}
 
-  // Clear any pending swap timer from a previous visit
-  if (ctaSwapTimer) { clearTimeout(ctaSwapTimer); ctaSwapTimer = null; }
+function ctaSchedule(fn, delay) {
+  ctaTimers.push(setTimeout(fn, delay));
+}
 
-  // Reset phrase to first
-  ctaPhraseIdx        = 0;
-  homeCta.textContent = CTA_PHRASES[0];
+function runPhrase1() {
+  var el = qs("#home-cta");
+  if (!el) return;
+  el.textContent = CTA_PHRASES[0];
 
-  // Restart CSS animation from scratch
-  homeCta.style.animation = "none";
-  homeCta.style.opacity   = "";
-  void homeCta.offsetWidth; // force reflow
-  homeCta.style.animation = "";
+  // fade in
+  el.style.transition = "opacity " + (P1_PEAK - P1_FADE_IN) + "ms ease-in-out";
+  ctaSchedule(function() { el.style.opacity = "0.9"; }, P1_FADE_IN);
 
-  // The CSS cycle is 8 s total.
-  // Phrase 1 runs 0–3 s (fade in 0–1.5 s, fade out 1.5–3 s).
-  // Silence runs 3–5 s — we swap at 4 s, right in the middle.
-  // Phrase 2 runs 5–8 s (fade in 5–6.5 s, fade out 6.5–8 s).
-  // Loop restarts — swap back to phrase 1 at 4 s into the next cycle (t=12 s).
-  // So: first swap at 4 s, then every 8 s after that.
-  function swap() {
-    var el = qs("#home-cta");
-    if (!el) return;
-    ctaPhraseIdx   = (ctaPhraseIdx + 1) % CTA_PHRASES.length;
-    el.textContent = CTA_PHRASES[ctaPhraseIdx];
-    ctaSwapTimer   = setTimeout(swap, 8000);
-  }
+  // switch to fade-out speed at peak, then fade out
+  ctaSchedule(function() {
+    el.style.transition = "opacity " + (P1_GONE - P1_PEAK) + "ms ease-in-out";
+    el.style.opacity = "0";
+  }, P1_PEAK);
 
-  ctaSwapTimer = setTimeout(swap, 4500);
+  // after gone + silence, run phrase 2
+  ctaSchedule(runPhrase2, P1_GONE + SILENCE_1);
+}
+
+function runPhrase2() {
+  var el = qs("#home-cta");
+  if (!el) return;
+  el.textContent = CTA_PHRASES[1];
+
+  // fade in
+  el.style.transition = "opacity " + (P2_PEAK - P2_FADE_IN) + "ms ease-in-out";
+  ctaSchedule(function() { el.style.opacity = "0.9"; }, P2_FADE_IN);
+
+  // switch to fade-out speed at peak, then fade out
+  ctaSchedule(function() {
+    el.style.transition = "opacity " + (P2_GONE - P2_PEAK) + "ms ease-in-out";
+    el.style.opacity = "0";
+  }, P2_PEAK);
+
+  // after gone + silence, loop back to phrase 1
+  ctaSchedule(runPhrase1, P2_GONE + SILENCE_2);
 }
 
 // ---- FLIP TRANSITION ----
@@ -369,13 +401,11 @@ document.addEventListener("DOMContentLoaded", async function() {
   // HOME tap → categories
   homeScreen.addEventListener("click", function() {
     if (isTransitionRunning) return;
-    // Stop swap timer and hide CTA before leaving home
-    if (ctaSwapTimer) { clearTimeout(ctaSwapTimer); ctaSwapTimer = null; }
+    // Stop CTA sequence and hide before leaving home
+    ctaTimers.forEach(function(t) { clearTimeout(t); });
+    ctaTimers = [];
     var homeCta = qs("#home-cta");
-    if (homeCta) {
-      homeCta.style.animation = "none";
-      homeCta.style.opacity   = "0";
-    }
+    if (homeCta) { homeCta.style.opacity = "0"; }
     navStack.push("categories-screen");
     navigateWithFlip("categories-screen", buildCategories);
   });
