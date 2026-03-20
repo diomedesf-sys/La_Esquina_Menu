@@ -231,26 +231,25 @@ button {
   letter-spacing: 0.22rem;
   color: var(--gold);
   text-align: center;
-  animation: cta-cycle 17s infinite ease-in-out;
+  animation: cta-cycle 8s infinite linear;
   transition: opacity 0.4s ease;
 }
 
-/* One full cycle — 17 s total:
-   Phrase 1 : 0 → 8 s  (full original breathing rhythm)
-   Silence  : 8 → 9 s  (JS swaps text at 8.5 s)
-   Phrase 2 : 9 → 17 s (identical breathing rhythm)
-
-   Percentages (time ÷ 17 × 100):
-     0 s  =  0%       8 s = 47.06%  (silence start)
-     4 s  = 23.53%    9 s = 52.94%  (phrase 2 start)
-    13 s  = 76.47%   17 s = 100%                      */
+/* One full cycle — 8 s total:
+   0 → 1.5 s  : fade in  (0 → peak)
+   1.5 → 3 s  : fade out (peak → 0)
+   3 → 5 s    : silent pause — JS swaps text here
+   5 → 6.5 s  : fade in  (0 → peak)
+   6.5 → 8 s  : fade out (peak → 0), loop
+   Percentages: 0 %=0 s, 18.75 %=1.5 s, 37.5 %=3 s,
+                62.5 %=5 s, 81.25 %=6.5 s, 100 %=8 s  */
 @keyframes cta-cycle {
-  0%      { opacity: 0.2; }   /*  0 s — phrase 1 dim start */
-  23.53%  { opacity: 0.95; }  /*  4 s — phrase 1 peak */
-  47.06%  { opacity: 0; }     /*  8 s — silence begins */
-  52.94%  { opacity: 0; }     /*  9 s — silence ends */
-  76.47%  { opacity: 0.95; }  /* 13 s — phrase 2 peak */
-  100%    { opacity: 0.2; }   /* 17 s — phrase 2 dim, loop */
+  0%      { opacity: 0; }
+  22.22%  { opacity: 0.9; }
+  44.44%   { opacity: 0; }
+  55.55%   { opacity: 0; }
+  77.77%  { opacity: 0.9; }
+  100%    { opacity: 0; }
 }
 
 /* Logo wrapper — glow effect concentrated behind the image */

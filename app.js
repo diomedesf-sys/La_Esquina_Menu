@@ -85,18 +85,21 @@ function resetHomeCta() {
   void homeCta.offsetWidth; // force reflow
   homeCta.style.animation = "";
 
-  // Total CSS cycle is 17 s.
-  // Phrase 1 runs 0–8 s, silence 8–9 s, phrase 2 runs 9–17 s.
-  // We swap text at 8.5 s — the midpoint of the silence — then every 17 s.
+  // The CSS cycle is 8 s total.
+  // Phrase 1 runs 0–3 s (fade in 0–1.5 s, fade out 1.5–3 s).
+  // Silence runs 3–5 s — we swap at 4 s, right in the middle.
+  // Phrase 2 runs 5–8 s (fade in 5–6.5 s, fade out 6.5–8 s).
+  // Loop restarts — swap back to phrase 1 at 4 s into the next cycle (t=12 s).
+  // So: first swap at 4 s, then every 8 s after that.
   function swap() {
     var el = qs("#home-cta");
     if (!el) return;
     ctaPhraseIdx   = (ctaPhraseIdx + 1) % CTA_PHRASES.length;
     el.textContent = CTA_PHRASES[ctaPhraseIdx];
-    ctaSwapTimer   = setTimeout(swap, 17000);
+    ctaSwapTimer   = setTimeout(swap, 8000);
   }
 
-  ctaSwapTimer = setTimeout(swap, 8500);
+  ctaSwapTimer = setTimeout(swap, 4500);
 }
 
 // ---- FLIP TRANSITION ----
