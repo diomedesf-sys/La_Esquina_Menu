@@ -3,12 +3,12 @@
 // ============================================================
 
 // ---- TUNEABLE CONSTANTS ----
-var FLIP_DURATION_MS = 600;   // total CSS rotation duration (milliseconds)
-                               // Try: 400 = very snappy, 600 = default, 900 = dramatic
-var FLIP_SWAP_RATIO  = 0.80;  // swap screen at this fraction of the rotation
-                               // 0.80 = swap at 80%, logo just returning to front
-                               // 0.75 = swap slightly earlier (more overlap)
-                               // 0.90 = swap later (more pause at end)
+var FLIP_DURATION_MS = 600; // total CSS rotation duration (milliseconds)
+// Try: 400 = very snappy, 600 = default, 900 = dramatic
+var FLIP_SWAP_RATIO = 0.8; // swap screen at this fraction of the rotation
+// 0.80 = swap at 80%, logo just returning to front
+// 0.75 = swap slightly earlier (more overlap)
+// 0.90 = swap later (more pause at end)
 // HOW IT WORKS:
 //   CSS rotates 360deg in FLIP_DURATION_MS.
 //   JS swaps the screen at FLIP_DURATION_MS * FLIP_SWAP_RATIO.
@@ -16,17 +16,19 @@ var FLIP_SWAP_RATIO  = 0.80;  // swap screen at this fraction of the rotation
 //   — feels like a seamless handoff with no dead pause.
 
 // ---- STATE ----
-var MENU_DATA           = null;
-var currentSection      = null;
-var currentItemIndex    = 0;
+var MENU_DATA = null;
+var currentSection = null;
+var currentItemIndex = 0;
 var isTransitionRunning = false;
-var categoriesBuilt     = false;
+var categoriesBuilt = false;
 
 // Navigation history stack for back button
 var navStack = [];
 
 // ---- UTILS ----
-var qs = function(sel) { return document.querySelector(sel); };
+var qs = function (sel) {
+  return document.querySelector(sel);
+};
 
 function formatPrice(amount) {
   if (amount == null || isNaN(Number(amount))) return null;
@@ -41,7 +43,7 @@ async function loadMenuData() {
 
 // ---- VIEW SWITCHING ----
 function showView(id) {
-  document.querySelectorAll(".app-view").forEach(function(v) {
+  document.querySelectorAll(".app-view").forEach(function (v) {
     v.classList.toggle("active", v.id === id);
   });
 }
@@ -57,7 +59,9 @@ function setNavVisible(visible, instant) {
     nav.classList.remove("fading");
   } else {
     nav.classList.add("fading");
-    setTimeout(function() { nav.classList.add("hidden"); }, 320);
+    setTimeout(function () {
+      nav.classList.add("hidden");
+    }, 320);
   }
 }
 
@@ -66,28 +70,30 @@ function setNavVisible(visible, instant) {
 //   phrase 1 fades in → peaks → fades out → silence → phrase 2 fades in → peaks → fades out → silence → repeat
 //
 // PHRASE 1 — timeline from the moment phrase 1 starts
-var P1_FADE_IN  = 0;     // ms — phrase 1 starts becoming visible
-var P1_PEAK     = 2000;  // ms — phrase 1 reaches full opacity
-var P1_GONE     = 4000;  // ms — phrase 1 has fully disappeared
+var P1_FADE_IN = 0; // ms — phrase 1 starts becoming visible
+var P1_PEAK = 4000; // ms — phrase 1 reaches full opacity
+var P1_GONE = 8000; // ms — phrase 1 has fully disappeared
 // SILENCE after phrase 1
-var SILENCE_1   = 1000;  // ms — no words on screen before phrase 2
+var SILENCE_1 = 300; // ms — no words on screen before phrase 2
 // PHRASE 2 — timeline from the moment phrase 2 starts
-var P2_FADE_IN  = 0;     // ms — phrase 2 starts becoming visible (almost always 0)
-var P2_PEAK     = 2000;  // ms — phrase 2 reaches full opacity
-var P2_GONE     = 4000;  // ms — phrase 2 has fully disappeared
+var P2_FADE_IN = 0; // ms — phrase 2 starts becoming visible (almost always 0)
+var P2_PEAK = 4000; // ms — phrase 2 reaches full opacity
+var P2_GONE = 8000; // ms — phrase 2 has fully disappeared
 // SILENCE after phrase 2
-var SILENCE_2   = 1000;  // ms — no words on screen before phrase 1 returns
+var SILENCE_2 = 300; // ms — no words on screen before phrase 1 returns
 
 // ---- RESET HOME CTA ----
 var CTA_PHRASES = ["DESCUBRE NUESTRO MENÚ", "AL PULSAR LA PANTALLA"];
-var ctaTimers   = [];
+var ctaTimers = [];
 
 function resetHomeCta() {
   var el = qs("#home-cta");
   if (!el) return;
-  ctaTimers.forEach(function(t) { clearTimeout(t); });
+  ctaTimers.forEach(function (t) {
+    clearTimeout(t);
+  });
   ctaTimers = [];
-  el.textContent   = CTA_PHRASES[0];
+  el.textContent = CTA_PHRASES[0];
   el.style.opacity = "0";
   ctaTimers.push(setTimeout(runPhrase1, 50));
 }
@@ -103,10 +109,12 @@ function runPhrase1() {
 
   // fade in
   el.style.transition = "opacity " + (P1_PEAK - P1_FADE_IN) + "ms ease-in-out";
-  ctaSchedule(function() { el.style.opacity = "0.9"; }, P1_FADE_IN);
+  ctaSchedule(function () {
+    el.style.opacity = "0.9";
+  }, P1_FADE_IN);
 
   // switch to fade-out speed at peak, then fade out
-  ctaSchedule(function() {
+  ctaSchedule(function () {
     el.style.transition = "opacity " + (P1_GONE - P1_PEAK) + "ms ease-in-out";
     el.style.opacity = "0";
   }, P1_PEAK);
@@ -122,10 +130,12 @@ function runPhrase2() {
 
   // fade in
   el.style.transition = "opacity " + (P2_PEAK - P2_FADE_IN) + "ms ease-in-out";
-  ctaSchedule(function() { el.style.opacity = "0.9"; }, P2_FADE_IN);
+  ctaSchedule(function () {
+    el.style.opacity = "0.9";
+  }, P2_FADE_IN);
 
   // switch to fade-out speed at peak, then fade out
-  ctaSchedule(function() {
+  ctaSchedule(function () {
     el.style.transition = "opacity " + (P2_GONE - P2_PEAK) + "ms ease-in-out";
     el.style.opacity = "0";
   }, P2_PEAK);
@@ -154,7 +164,7 @@ function navigateWithFlip(targetViewId, afterTransition) {
   // Swap screen at FLIP_SWAP_RATIO of the rotation — logo nearly back to front,
   // new page appears seamlessly without a dead pause at the end
   var swapAt = Math.round(FLIP_DURATION_MS * FLIP_SWAP_RATIO);
-  setTimeout(function() {
+  setTimeout(function () {
     showView(targetViewId);
 
     if (targetViewId === "home-screen") {
@@ -168,7 +178,7 @@ function navigateWithFlip(targetViewId, afterTransition) {
   }, swapAt);
 
   // Unlock input after full CSS animation completes
-  setTimeout(function() {
+  setTimeout(function () {
     isTransitionRunning = false;
   }, FLIP_DURATION_MS);
 }
@@ -183,18 +193,18 @@ function buildCategories() {
 
   grid.innerHTML = "";
 
-  MENU_DATA.sections.forEach(function(section) {
+  MENU_DATA.sections.forEach(function (section) {
     var card = document.createElement("button");
     card.className = "category-card";
-    card.type      = "button";
+    card.type = "button";
 
     // Background: real photo or CSS vignette placeholder
     if (section.categoryImage) {
-      var img      = document.createElement("img");
+      var img = document.createElement("img");
       img.className = "cat-photo";
-      img.src       = section.categoryImage;
-      img.alt       = "";
-      img.loading   = "lazy";
+      img.src = section.categoryImage;
+      img.alt = "";
+      img.loading = "lazy";
       card.appendChild(img);
     } else {
       var ph = document.createElement("div");
@@ -209,16 +219,16 @@ function buildCategories() {
 
     // Label
     var label = document.createElement("span");
-    label.className   = "cat-label";
+    label.className = "cat-label";
     label.textContent = section.name;
     card.appendChild(label);
 
-    card.addEventListener("click", function() {
+    card.addEventListener("click", function () {
       if (isTransitionRunning) return;
-      currentSection   = section;
+      currentSection = section;
       currentItemIndex = 0;
       navStack.push("items-screen");
-      navigateWithFlip("items-screen", function() {
+      navigateWithFlip("items-screen", function () {
         buildItemsForSection();
         scrollToCurrentItem(true);
       });
@@ -235,40 +245,43 @@ function buildItemsForSection() {
 
   container.innerHTML = "";
 
-  currentSection.items.forEach(function(item, index) {
+  currentSection.items.forEach(function (item, index) {
     var view = document.createElement("div");
-    view.className     = "dish-view";
+    view.className = "dish-view";
     view.dataset.index = index;
 
     // Photo wrapper
     var imgWrapper = document.createElement("div");
     imgWrapper.className = "dish-image-wrapper";
 
-    var img    = document.createElement("img");
-    var imgSrc = typeof item.image === "string"
-      ? item.image
-      : (item.image && item.image.src ? item.image.src : "");
-    var imgAlt = (item.image && item.image.alt) ? item.image.alt : item.name;
-    img.src     = imgSrc;
-    img.alt     = imgAlt;
+    var img = document.createElement("img");
+    var imgSrc =
+      typeof item.image === "string"
+        ? item.image
+        : item.image && item.image.src
+          ? item.image.src
+          : "";
+    var imgAlt = item.image && item.image.alt ? item.image.alt : item.name;
+    img.src = imgSrc;
+    img.alt = imgAlt;
     img.loading = "lazy";
     imgWrapper.appendChild(img);
 
     // Name
     var nameEl = document.createElement("div");
-    nameEl.className   = "dish-name";
+    nameEl.className = "dish-name";
     nameEl.textContent = item.name;
 
     // Hint
     var hint = document.createElement("div");
-    hint.className   = "dish-hint";
+    hint.className = "dish-hint";
     hint.textContent = "Tocar para ver detalles \u2192";
 
     view.appendChild(imgWrapper);
     view.appendChild(nameEl);
     view.appendChild(hint);
 
-    view.addEventListener("click", function() {
+    view.addEventListener("click", function () {
       if (isTransitionRunning) return;
       currentItemIndex = index;
       navStack.push("description-screen");
@@ -282,19 +295,28 @@ function buildItemsForSection() {
 function scrollToCurrentItem(instant) {
   var container = qs("#items-container");
   if (!container) return;
-  var target = container.querySelector(".dish-view[data-index=\"" + currentItemIndex + "\"]");
+  var target = container.querySelector(
+    '.dish-view[data-index="' + currentItemIndex + '"]',
+  );
   if (target) {
-    target.scrollIntoView({ behavior: instant ? "instant" : "smooth", block: "start" });
+    target.scrollIntoView({
+      behavior: instant ? "instant" : "smooth",
+      block: "start",
+    });
   }
 }
 
 function attachScrollTracker() {
   var container = qs("#items-container");
   if (!container) return;
-  container.addEventListener("scroll", function() {
-    var h = container.clientHeight;
-    if (h > 0) currentItemIndex = Math.round(container.scrollTop / h);
-  }, { passive: true });
+  container.addEventListener(
+    "scroll",
+    function () {
+      var h = container.clientHeight;
+      if (h > 0) currentItemIndex = Math.round(container.scrollTop / h);
+    },
+    { passive: true },
+  );
 }
 
 // ---- DESCRIPTION SCREEN ----
@@ -308,15 +330,15 @@ function buildDescription() {
   box.innerHTML = "";
 
   var cat = document.createElement("div");
-  cat.className   = "desc-category";
+  cat.className = "desc-category";
   cat.textContent = currentSection.name;
 
   var nameEl = document.createElement("div");
-  nameEl.className   = "desc-name";
+  nameEl.className = "desc-name";
   nameEl.textContent = item.name;
 
   var textEl = document.createElement("div");
-  textEl.className   = "desc-text";
+  textEl.className = "desc-text";
   textEl.textContent = item.description || "";
 
   box.appendChild(cat);
@@ -328,12 +350,12 @@ function buildDescription() {
     var sizesList = document.createElement("div");
     sizesList.className = "desc-sizes";
 
-    item.sizes.forEach(function(size) {
+    item.sizes.forEach(function (size) {
       var row = document.createElement("div");
       row.className = "desc-size-row";
 
       var lbl = document.createElement("span");
-      lbl.className   = "desc-size-label";
+      lbl.className = "desc-size-label";
       lbl.textContent = size.label;
 
       var val = document.createElement("span");
@@ -345,16 +367,15 @@ function buildDescription() {
     });
 
     box.appendChild(sizesList);
-
   } else {
-    var priceEl   = document.createElement("div");
+    var priceEl = document.createElement("div");
     var formatted = formatPrice(item.price);
 
     if (formatted) {
-      priceEl.className   = "desc-price";
+      priceEl.className = "desc-price";
       priceEl.textContent = formatted;
     } else {
-      priceEl.className   = "desc-price consultar";
+      priceEl.className = "desc-price consultar";
       priceEl.textContent = "Consultar";
     }
 
@@ -375,14 +396,16 @@ function goBack() {
   } else if (current === "items-screen") {
     navigateWithFlip("categories-screen");
   } else if (current === "description-screen") {
-    navigateWithFlip("items-screen", function() { scrollToCurrentItem(false); });
+    navigateWithFlip("items-screen", function () {
+      scrollToCurrentItem(false);
+    });
   } else {
     navigateWithFlip("home-screen");
   }
 }
 
 // ---- INIT ----
-document.addEventListener("DOMContentLoaded", async function() {
+document.addEventListener("DOMContentLoaded", async function () {
   await loadMenuData();
 
   // Apply CSS background classes
@@ -399,25 +422,29 @@ document.addEventListener("DOMContentLoaded", async function() {
   var homeScreen = qs("#home-screen");
 
   // HOME tap → categories
-  homeScreen.addEventListener("click", function() {
+  homeScreen.addEventListener("click", function () {
     if (isTransitionRunning) return;
     // Stop CTA sequence and hide before leaving home
-    ctaTimers.forEach(function(t) { clearTimeout(t); });
+    ctaTimers.forEach(function (t) {
+      clearTimeout(t);
+    });
     ctaTimers = [];
     var homeCta = qs("#home-cta");
-    if (homeCta) { homeCta.style.opacity = "0"; }
+    if (homeCta) {
+      homeCta.style.opacity = "0";
+    }
     navStack.push("categories-screen");
     navigateWithFlip("categories-screen", buildCategories);
   });
 
   // BACK button
-  qs("#nav-back").addEventListener("click", function(e) {
+  qs("#nav-back").addEventListener("click", function (e) {
     e.stopPropagation();
     goBack();
   });
 
   // HOME icon — clear stack and go home
-  qs("#nav-home").addEventListener("click", function(e) {
+  qs("#nav-home").addEventListener("click", function (e) {
     e.stopPropagation();
     if (isTransitionRunning) return;
     navStack.length = 0;
