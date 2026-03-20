@@ -74,13 +74,13 @@ var P1_FADE_IN = 0; // ms — phrase 1 starts becoming visible
 var P1_PEAK = 4000; // ms — phrase 1 reaches full opacity
 var P1_GONE = 8000; // ms — phrase 1 has fully disappeared
 // SILENCE after phrase 1
-var SILENCE_1 = 300; // ms — no words on screen before phrase 2
+var SILENCE_1 = 150; // ms — no words on screen before phrase 2
 // PHRASE 2 — timeline from the moment phrase 2 starts
 var P2_FADE_IN = 0; // ms — phrase 2 starts becoming visible (almost always 0)
 var P2_PEAK = 4000; // ms — phrase 2 reaches full opacity
 var P2_GONE = 8000; // ms — phrase 2 has fully disappeared
 // SILENCE after phrase 2
-var SILENCE_2 = 300; // ms — no words on screen before phrase 1 returns
+var SILENCE_2 = 150; // ms — no words on screen before phrase 1 returns
 
 // ---- RESET HOME CTA ----
 var CTA_PHRASES = ["DESCUBRE NUESTRO MENÚ", "AL PULSAR LA PANTALLA"];
