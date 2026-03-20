@@ -14,28 +14,28 @@
         {
           "id": "1_2",
           "name": "Servicio Croquetas Chorizo",
-          "description": "Su crujiente exterior envuelve una cremosidad irresistible que estalla en el paladar, fundiéndose lentamente con el sabor intenso y ahumado del mejor chorizo español.",
+          "description": "Su crujiente exterior envuelve una textura exquisita que estalla en el paladar, fundiéndose lentamente con el sabor intenso y ahumado del mejor chorizo español.",
           "price": 180,
           "image": "images/1_2_croquetas_chorizo.webp"
         },
         {
           "id": "1_3",
           "name": "Servicio Croquetas Pollo",
-          "description": "Un abrazo cálido en cada bocado. Pechuga de pollo desmenuzada y sazonada con esmero, envuelta en una bechamel sedosa y un empanizado perfectamente dorado.",
+          "description": "Sabor acogedor en cada bocado. Pechuga de pollo desmenuzada y sazonada con esmero, envuelta en una bechamel sedosa y un empanizado perfectamente dorado.",
           "price": 180,
           "image": "images/1_3_croquetas_pollo.webp"
         },
         {
           "id": "1_4",
           "name": "Servicio Bastones de Mozzarella",
-          "description": "Irresistibles bastones dorados con una costra sumamente crujiente, que al morder revelan un queso mozzarella caliente, elástico y fundido. Un clásico con alma gourmet.",
+          "description": "Irresistibles bastones dorados de exterior irresistiblemente crujiente, que al morder revelan el fresco sabor de un queso mozzarella fundido que te envuelve. Un clásico con alma gourmet.",
           "price": 180,
           "image": "images/1_4_bastones_de_mozzarella.webp"
         },
         {
           "id": "1_5",
           "name": "Servicio Croquetas Mixtas",
-          "description": "La degustación perfecta para compartir. Una selección crujiente y dorada de nuestras mejores croquetas de pollo, chorizo y duende, junto a deliciosos bastones fundidos.",
+          "description": "La degustación perfecta para compartir y degustar una amplia diversidad de sabores. Una selección crujiente y dorada de nuestras mejores croquetas de pollo, chorizo y duende.",
           "price": 180,
           "image": "images/1_5_croquetas_mixtas.webp"
         },
@@ -56,7 +56,7 @@
         {
           "id": "1_8",
           "name": "Servicio Catibias de Chorizo",
-          "description": "El sabor del hogar con carácter. Crujiente cubierta de yuca que resguarda un corazón de chorizo intenso y aromático, creando un contraste de texturas memorable.",
+          "description": "El sabor del hogar con carácter ibérico. Crujiente cubierta de yuca que resguarda un corazón de chorizo intenso y aromático, creando un contraste de texturas memorable.",
           "price": 180,
           "image": "images/1_8_catibias_de_chorizo.webp"
         },
@@ -70,7 +70,7 @@
         {
           "id": "1_10",
           "name": "Servicio Flautas de Pollo",
-          "description": "Finos y delicados rollitos dorados, extremadamente crujientes, que encierran en su interior un jugoso y tierno pollo desmechado con los aromas de la cocina familiar.",
+          "description": "Finos y delicados rollitos dorados, extremadamente crujientes, que encierran en su interior un jugoso y tierno pollo desmechado con los aromas de nuestra cocina familiar.",
           "price": 210,
           "image": "images/1_10_flautas_de_pollo.webp"
         },
@@ -91,7 +91,7 @@
         {
           "id": "2_1",
           "name": "Tabla de Queso Manchego",
-          "description": "Fina selección de auténtico queso manchego curado, de textura firme y sabor intenso, ideal para compartir y evocar la calidez de una tarde hogareña.",
+          "description": "Fina selección de auténtico queso manchego curado, de textura firme y sabor intenso, ideal para compartir y evocar la calidez de una tarde perfecta.",
           "price": 250,
           "image": "images/2_1_tabla_de_queso_manchego.webp"
         },
@@ -112,7 +112,7 @@
         {
           "id": "2_4",
           "name": "Provoleta",
-          "description": "Queso provolone fundido al rojo vivo, con una costra dorada y crujiente que esconde un interior maravillosamente elástico, sumamente cremoso y reconfortante.",
+          "description": "Queso provolone fundido al rojo vivo, con una capa dorada y crujiente que esconde un interior maravillosamente sedoso, sumamente cremoso y reconfortante.",
           "price": 275,
           "image": "images/2_4_provoleta.webp"
         }
@@ -133,42 +133,42 @@
         {
           "id": "3_2",
           "name": "Pechugas a la Plancha",
-          "description": "Tierna y jugosa pechuga de pollo dorada a la plancha, conservando toda su humedad natural. Un plato ligero, reconfortante y lleno de sabor hogareño.",
+          "description": "Tierna y jugosa pechuga de pollo dorada a la plancha, conservando toda su humedad natural. Un plato ligero, reconfortante e impregnado de sabor.",
           "price": 390,
           "image": "images/3_2_pechugas_a_la_plancha.webp"
         },
         {
           "id": "3_3",
           "name": "Pechuga a la Cordon Bleu",
-          "description": "Un exterior extracrujiente que resguarda un jugoso corazón de pechuga fundido con queso derretido y jamón aromático. Un abrazo cálido e irresistiblemente gourmet.",
+          "description": "Un exterior extra-crujiente que resguarda un jugoso corazón de pechuga fundido con queso derretido y jamón aromático. Un abrazo cálido e irresistiblemente gourmet.",
           "price": 590,
           "image": "images/3_3_pechuga_cordon_bleu.webp"
         },
         {
           "id": "3_4",
           "name": "Chuletas a la Parrilla",
-          "description": "Suculentas chuletas marcadas por el fuego, con bordes caramelizados y un interior increíblemente jugoso y tierno que evoca las mejores parrilladas familiares.",
+          "description": "Suculentas chuletas marcadas por el fuego, con bordes caramelizados y un interior increíblemente jugoso y tierno que evoca las más memorables parrilladas familiares.",
           "price": 390,
           "image": "images/3_4_chuletas_a_la_parrilla.webp"
         },
         {
           "id": "3_5",
           "name": "Filete de Cerdo",
-          "description": "Magro, tierno y sellado a la perfección. Este delicado corte se deshace en el paladar, ofreciendo un sabor sutil, elegante y profundamente reconfortante.",
+          "description": "Magro, tierno y sellado a la perfección. Este delicado corte se deshace en el paladar, ofreciendo un sabor sutil y elegante. Sencillamente inolvidable.",
           "price": 500,
           "image": "images/3_5_filete_de_cerdo.webp"
         },
         {
           "id": "3_6",
           "name": "Costillas a la Parrilla",
-          "description": "Tiernas costillas braseadas lentamente hasta desprenderse del hueso. Su costra dorada y ahumada sella una suculencia exquisita que te hará agua la boca.",
+          "description": "Tiernas costillas braseadas lentamente hasta desprenderse del hueso. Su crujiente capa exterior, dorada y ahumada, sella una suculencia exquisita que te hará agua la boca.",
           "price": 590,
           "image": "images/3_6_costillas_a_la_parrilla.webp"
         },
         {
           "id": "3_7",
           "name": "Mero a la Plancha",
-          "description": "Fresca y delicado filete de mero, sellado hasta lograr una fina costra dorada que contrasta con su interior nacarado, suave y jugoso.",
+          "description": "Fresco y delicado filete de mero, sellado hasta lograr una firme y exquisita envoltura dorada, que contrasta con su suave y jugoso interior.",
           "price": 390,
           "image": "images/3_7_mero_a_la_plancha.webp"
         },
@@ -182,14 +182,14 @@
         {
           "id": "3_9",
           "name": "Gambas al Ajillo",
-          "description": "Exquisitas gambas bañadas en un aceite de oliva burbujeante y aromático. Un clásico intenso, seductor y reconfortante que invita a mojar el pan.",
+          "description": "Exquisitas gambas bañadas en aromático aceite de oliva e impregnadas de un delicado toque de ajo fresco. Un clásico intenso, seductor y reconfortante que invita a mojar el pan.",
           "price": 750,
           "image": "images/3_9_gambas_al_ajillo.webp"
         },
         {
           "id": "3_10",
           "name": "Camarones al Grill",
-          "description": "Suculentos camarones besados por las brasas, logrando un toque ahumado perfecto que resalta su textura firme, jugosa y su frescura con alma gourmet.",
+          "description": "Suculentos camarones besados por las brasas, logrando un toque ahumado perfecto que resalta su textura firme e inconfundible sabor a mar con alma gourmet.",
           "price": 500,
           "image": "images/3_10_camarones_al_grill.webp"
         },
@@ -228,7 +228,7 @@
         {
           "id": "3_16",
           "name": "Longaniza Casera",
-          "description": "Auténtica longaniza artesanal asada hasta alcanzar un dorado perfecto. Su piel crujiente estalla revelando un interior jugoso, especiado y lleno de herencia familiar.",
+          "description": "Auténtica longaniza artesanal asada hasta alcanzar un dorado perfecto. Su piel crujiente se devela, revelando un interior jugoso, especiado y lleno de herencia familiar.",
           "price": 390,
           "image": "images/3_16_longaniza_casera.webp"
         }
@@ -262,8 +262,8 @@
         },
         {
           "id": "4_4",
-          "name": "Rib Eye 14 - 16 OZ",
-          "description": "El rey del marmoleo. Un corte suntuoso y mantecoso que estalla de jugosidad en cada bocado, ofreciendo una experiencia gourmet profundamente reconfortante.",
+          "name": "Rib Eye 14 - 16 oz",
+          "description": "Manjar de vetas infinitas. Un corte suntuoso y mantecoso que estalla de jugosidad en cada bocado, ofreciendo una experiencia gourmet profundamente reconfortante.",
           "price": 1450,
           "image": "images/4_4_rib_eye.webp"
         }
@@ -277,21 +277,21 @@
         {
           "id": "5_1",
           "name": "Hamburguesa Angus 8 onzas",
-          "description": "Jugosa carne Angus en pan brioche artesanal ligeramente tostado. Una combinación clásica, fresca y exquisitamente tierna que sabe al mejor domingo familiar.",
+          "description": "Jugosa carne Angus en pan artesanal ligeramente tostado. Una combinación clásica, fresca y exquisitamente tierna que sabe al mejor domingo familiar.",
           "price": 450,
           "image": "images/5_1_hamburguesa_angus_8_onzas.webp"
         },
         {
           "id": "5_2",
           "name": "Hamburguesa Angus 8 oz Bacon & Cheese",
-          "description": "Suculenta Angus bañada en cheddar fundido y coronada con tocineta extracrujiente. El pan brioche abraza este festín humeante, pecaminoso y absolutamente reconfortante.",
+          "description": "Suculenta Angus bañada en cheddar fundido y coronada con tocineta extra-crujiente. El exquisito pan abraza este festín humeante, pecaminoso y absolutamente reconfortante.",
           "price": 490,
           "image": "images/5_2_hamburguesa_angus_8_onzas_bacon_&_cheese.webp"
         },
         {
           "id": "5_3",
           "name": "Hamburguesa Doble Angus Cheese",
-          "description": "Doble deleite de carne jugosa abrazada por un océano de queso elástico y derretido. Un monumento monumental al sabor, increíblemente tierno y sustancioso.",
+          "description": "Doble deleite de carne jugosa abrazada por un océano de queso derretido. Una oda monumental al sabor, increíblemente tierno y sustancioso.",
           "price": 800,
           "image": "images/5_3_hamburguesa_doble_angus_cheese.webp"
         },
@@ -305,14 +305,14 @@
         {
           "id": "5_5",
           "name": "Hamburguesa de pechuga de pollo",
-          "description": "Tierna y jugosa pechuga a la plancha, arropada por un cremoso queso cheddar derretido. Un bocado reconfortante y ligero que acaricia el paladar.",
+          "description": "Tierna y jugosa pechuga a la plancha, arropada por un cremoso queso cheddar derretido. Una experiencia reconfortante y ligera que despierta el paladar.",
           "price": 350,
           "image": "images/5_5_hamburguesa_pechuga_pollo.webp"
         },
         {
           "id": "5_6",
           "name": "Hamburguesa de Pollo Crispy",
-          "description": "Extremadamente crujiente y dorada por fuera, pero sorprendentemente tierna y jugosa por dentro. Un verdadero homenaje al reconfortante sabor del pollo frito casero.",
+          "description": "Extremadamente crujiente y dorada por fuera, pero sorprendentemente tierna y jugosa por dentro. Un verdadero homenaje al increíblemente versátil sabor del pollo.",
           "price": 390,
           "image": "images/5_6_hamburguesa_pollo_crispy.webp"
         }
@@ -326,14 +326,14 @@
         {
           "id": "6_1",
           "name": "Pasta Pomodoro",
-          "description": "Clásica y reconfortante. Fina pasta envuelta en una sedosa salsa de tomates maduros, perfumada con hierbas que evocan el auténtico calor de hogar.",
+          "description": "Clásica e inigualable. Fina pasta envuelta en una sedosa salsa de tomates maduros, perfumada con hierbas que evocan el auténtico calor de hogar.",
           "price": 250,
           "image": "images/6_1_pasta_pomodoro.webp"
         },
         {
           "id": "6_2",
           "name": "Pasta Bechamel",
-          "description": "Un abrazo cremoso y irresistible. Pasta al dente bañada en una untuosa y delicada salsa blanca, logrando una suavidad exquisita en cada bocado.",
+          "description": "Un abrazo cremoso e irresistible. Incomparable manifestación de la pasta bañada en una untuosa y delicada salsa blanca, logrando una suavidad exquisita en cada bocado.",
           "price": 250,
           "image": "images/6_2_pasta_bechamel.webp"
         },
@@ -354,7 +354,7 @@
         {
           "id": "6_5",
           "name": "Boloñesa",
-          "description": "El sabor de la tradición. Intensa y carnosa salsa cocinada a fuego lento, cubriendo una pasta al dente que te transportará a la mesa familiar.",
+          "description": "El sabor de la tradición. Intensa y carnosa salsa cocinada a fuego lento, cubriendo una pasta al dente que te transportará a un mundo de sabores.",
           "price": 450,
           "image": "images/6_5_bolonesa.webp"
         }
@@ -368,23 +368,23 @@
         {
           "id": "7_1",
           "name": "Mofongo",
-          "description": "Majado artesanal de plátanos dorados y crujientes, impregnado con un aromático toque de ajo. Un bocado profundamente tradicional, suave, jugoso y inolvidable.",
+          "description": "Visión artesanal de plátanos dorados y crujientes, impregnado con un aromático toque de ajo. Un bocado profundamente tradicional, suave, jugoso e inolvidable.",
           "price": 390,
           "image": "images/7_1_mofongo.webp"
         },
         {
           "id": "7_2",
-          "name": "Mofongo Mixto",
-          "description": "Crujiente plátano majado que esconde un jugoso tesoro de carnes tiernas. Una explosión de texturas y sabores rústicos que celebran la auténtica cocina criolla.",
-          "price": 490,
-          "image": "images/7_2_mofongo_mixto.webp"
+          "name": "Mofongo de Camarones",
+          "description": "Suculentos camarones bañados en una salsa rica y aromática, arropado por nuestro tradicional plátano dorado. Un manjar que no te debes perder.",
+          "price": 750,
+          "image": "images/7_2_mofongo_de_camarones.webp"
         },
         {
-          "id": "7_3",
-          "name": "Mofongo de Camarones",
-          "description": "Corona de suculentos camarones bañados en una salsa rica y aromática, descansando sobre un majado de plátano dorado, crujiente y sumamente reconfortante.",
-          "price": 750,
-          "image": "images/7_3_mofongo_de_camarones.webp"
+         "id": "7_3",
+          "name": "Mofongo Mixto",
+          "description": "Crujiente plátano que esconde un jugoso tesoro de carnes tiernas. Una explosión de texturas y sabores rústicos que celebran la auténtica cocina criolla.",
+          "price": 490,
+          "image": "images/7_3_mofongo_mixto.webp" 
         }
       ],
       "categoryImage": "images/cat_7_mofongos.webp"
@@ -396,21 +396,21 @@
         {
           "id": "8_1",
           "name": "Ensalada Fresca",
-          "description": "Mezcla crujiente de hojas verdes y vegetales vibrantes. Un respiro ligero, refrescante y natural que equilibra tu paladar con su frescura inigualable.",
+          "description": "Mezcla de crujientes verdes y vegetales vibrantes. Un plato ligero, refrescante y natural que brinda al paladar un equilibrio perfecto y frescura incomparable.",
           "price": 140,
           "image": "images/8_1_ensalada_fresca.webp"
         },
         {
           "id": "8_2",
           "name": "Ensalada de Pollo",
-          "description": "Tierna y jugosa pechuga al grill sobre un lecho de vegetales sumamente crujientes. Una armonía perfecta entre ligereza, frescura y sabor reconfortante.",
+          "description": "Tiernas y jugosas tiras de pechuga al grill sobre un lecho de vegetales crujientes. Una armonía perfecta entre ligereza, frescura y sabor.",
           "price": 350,
           "image": "images/8_2_ensalada_de_pollo.webp"
         },
         {
           "id": "8_3",
           "name": "Tortilla Española",
-          "description": "Dorada por fuera y jugosa por dentro. Clásica fusión de papas tiernas y huevos cremosos que te regala un bocado puramente hogareño y tradicional.",
+          "description": "Dorada por fuera y jugosa por dentro. Clásica fusión tradicional que regala un bocado entrañable y lleno de sabor auténtico Español.",
           "price": 300,
           "image": "images/8_3_tortilla_espanola.webp"
         },
@@ -424,7 +424,7 @@
         {
           "id": "8_5",
           "name": "Wraps Pollo",
-          "description": "Suave tortilla que abraza una jugosa pechuga de pollo y vegetales frescos. Una opción ligera, reconfortante y con un toque crujiente irresistible.",
+          "description": "Suave tortilla que abraza jugosas tiras de pechuga de pollo y vegetales frescos. Una opción ligera con un toque crujiente irresistible.",
           "price": 350,
           "image": "images/8_5_wrap_pollo.webp"
         },
@@ -459,14 +459,14 @@
         {
           "id": "9_2",
           "name": "Sopa",
-          "description": "Reconfortante y llena de vida. Un exquisito caldo casero cocinado a fuego lento, ofreciendo un abrazo cálido, familiar y profundamente nutritivo.",
+          "description": "Un exquisito caldo casero cocinado a fuego lento, ofreciendo un abrazo cálido, familiar y profundamente nutritivo.",
           "price": 200,
           "image": "images/9_2_sopa.webp"
         },
         {
           "id": "9_3",
           "name": "Caldo Montañez",
-          "description": "Un abrazo cálido para el alma. Reconfortante caldo casero de cerdo, tiernas salchichas y alubias, cocinado a fuego lento con pura tradición.",
+          "description": "Un abrazo cálido para el alma. Inigualable caldo casero de cerdo, tiernas salchichas y alubias, cocinado a fuego lento con pura tradición.",
           "price": 350,
           "image": "images/9_3_caldo_montanez.webp"
         }
@@ -480,7 +480,7 @@
         {
           "id": "10_1",
           "name": "Cortado de leche",
-          "description": "Un dulce pecado tradicional. Suave textura caramelizada que se deshace lentamente en la boca, dejando un exquisito y sedoso recuerdo hogareño.",
+          "description": "Un pecado tradicional para clausurar. Suave textura que permanece agradablemente en el paladar, dejando un exquisito y sedoso recuerdo hogareño.",
           "price": 160,
           "image": "images/10_1_cortado_de_leche.webp"
         },
@@ -501,7 +501,7 @@
         {
           "id": "11_1",
           "name": "Arroz Blanco & Habichuelas",
-          "description": "Un dúo clásico y infalible. Arroz tierno acompañado de sabrosas habichuelas guisadas con un sazón profundamente hogareño, cálido y reconfortante.",
+          "description": "Un dúo clásico e infalible. Arroz en su punto acompañado de sabrosas habichuelas guisadas con un sazón profundamente hogareño y cálido.",
           "price": 125,
           "image": "images/11_1_arroz_blanco_&_habichuelas.webp"
         },
@@ -515,21 +515,21 @@
         {
           "id": "11_3",
           "name": "Pan Fresco",
-          "description": "Cálido, suave y recién horneado. Su miga esponjosa y corteza ligeramente crujiente son el abrazo ideal para acompañar cualquier salsa casera.",
+          "description": "Cálido, suave y recién sacado del horno. Su miga esponjosa y corteza ligeramente crujiente son el abrazo ideal para acompañar cualquier salsa artesanal.",
           "price": null,
           "image": "images/11_3_pan_fresco.webp"
         },
         {
           "id": "11_4",
           "name": "Tostones",
-          "description": "Discos de plátano verde fritos hasta alcanzar un dorado extracrujiente. Un acompañamiento tradicional, jugoso por dentro, que nunca falla en la mesa.",
+          "description": "Rodajas de plátano verde fritas hasta un dorado crocante. Tiernas por dentro, son el acompañamiento tradicional que nunca falta en la mesa.",
           "price": null,
           "image": "images/11_4_tostones.webp"
         },
         {
           "id": "11_5",
           "name": "Papas Wedge",
-          "description": "Gajos de papa rústicos con una piel crujiente que resguarda un corazón increíblemente tierno, esponjoso y lleno de intenso sabor.",
+          "description": "Papas rústicas con piel crujiente que resguarda un corazón tierno. Un acompañamiento lleno de sabor intenso y carácter auténtico que conquista.",
           "price": 75,
           "image": "images/11_5_papas_wedge.webp"
         },
@@ -543,14 +543,14 @@
         {
           "id": "11_7",
           "name": "Papas Salteadas",
-          "description": "Tiernas papas doradas en la sartén, bañadas en hierbas aromáticas y un delicado toque de mantequilla para un final jugoso y sublime.",
+          "description": "Tiernas papas doradas en la sartén, bañadas en hierbas aromáticas. Un final jugoso y sublime que aporta frescura y sabor elegante.",
           "price": 110,
           "image": "images/11_7_papas_salteadas.webp"
         },
         {
           "id": "11_8",
           "name": "Pure de Papas",
-          "description": "Extremadamente sedoso y cremoso. Un puré artesanal que abraza el paladar con su suavidad, evocando los recuerdos más cálidos del hogar.",
+          "description": "Sedoso y cremoso, elaborado artesanalmente. Un puré que acaricia el paladar con suavidad, evocando recuerdos entrañables de la cocina tradicional.",
           "price": 90,
           "image": "images/11_8_pure_de_papas.webp"
         },

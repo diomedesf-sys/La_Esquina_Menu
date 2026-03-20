@@ -275,7 +275,7 @@ function buildItemsForSection() {
     // Hint
     var hint = document.createElement("div");
     hint.className = "dish-hint";
-    hint.textContent = "Tocar para ver detalles \u2192";
+    hint.textContent = "Pulsar para ver detalles \u2192";
 
     view.appendChild(imgWrapper);
     view.appendChild(nameEl);
