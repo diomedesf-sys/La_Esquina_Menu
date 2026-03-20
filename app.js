@@ -63,14 +63,41 @@ function setNavVisible(visible, instant) {
 
 // ---- RESET HOME CTA ----
 // Called every time we navigate back to home so the pulse text reappears
+// and the phrase sequence restarts from the beginning.
+var CTA_PHRASES  = ["DESCUBRE NUESTRO MENÚ", "AL PULSAR LA PANTALLA"];
+var ctaPhraseIdx = 0;
+var ctaSwapTimer = null;
+
 function resetHomeCta() {
   var homeCta = qs("#home-cta");
   if (!homeCta) return;
+
+  // Clear any pending swap timer from a previous visit
+  if (ctaSwapTimer) { clearTimeout(ctaSwapTimer); ctaSwapTimer = null; }
+
+  // Reset phrase to first
+  ctaPhraseIdx        = 0;
+  homeCta.textContent = CTA_PHRASES[0];
+
+  // Restart CSS animation from scratch
   homeCta.style.animation = "none";
   homeCta.style.opacity   = "";
-  // Force reflow so the animation restart takes effect
-  void homeCta.offsetWidth;
+  void homeCta.offsetWidth; // force reflow
   homeCta.style.animation = "";
+
+  // The CSS cycle is 8 s total. The silent pause runs from 3 s → 5 s.
+  // We swap the text at 3 s (mid-silence) so the new phrase fades in cleanly.
+  // After the first swap we repeat every 8 s to stay locked to the animation loop.
+  function swap() {
+    var el = qs("#home-cta");
+    if (!el) return;
+    ctaPhraseIdx   = (ctaPhraseIdx + 1) % CTA_PHRASES.length;
+    el.textContent = CTA_PHRASES[ctaPhraseIdx];
+    // schedule next swap one full cycle later
+    ctaSwapTimer = setTimeout(swap, 8000);
+  }
+
+  ctaSwapTimer = setTimeout(swap, 3000);
 }
 
 // ---- FLIP TRANSITION ----
@@ -332,12 +359,16 @@ document.addEventListener("DOMContentLoaded", async function() {
 
   attachScrollTracker();
 
+  // Start the CTA phrase cycle on first load
+  resetHomeCta();
+
   var homeScreen = qs("#home-screen");
 
   // HOME tap → categories
   homeScreen.addEventListener("click", function() {
     if (isTransitionRunning) return;
-    // Hide the CTA text before leaving home
+    // Stop swap timer and hide CTA before leaving home
+    if (ctaSwapTimer) { clearTimeout(ctaSwapTimer); ctaSwapTimer = null; }
     var homeCta = qs("#home-cta");
     if (homeCta) {
       homeCta.style.animation = "none";
