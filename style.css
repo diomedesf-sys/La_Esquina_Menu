@@ -4,16 +4,16 @@
 
 /* ---- VARIABLES ---- */
 :root {
-  --gold:        #f2a900;
-  --gold-dim:    rgba(242, 169, 0, 0.25);
-  --gold-faint:  rgba(242, 169, 0, 0.08);
-  --bg-black:    #0a0906;
-  --bg-card:     #111009;
-  --text-white:  #f5f0e8;
-  --text-gray:   #8a8070;
-  --font-serif:  'Playfair Display', Georgia, serif;
-  --font-ui:     'Outfit', sans-serif;
-  --nav-h:       56px;
+  --gold: #f2a900;
+  --gold-dim: rgba(242, 169, 0, 0.25);
+  --gold-faint: rgba(242, 169, 0, 0.08);
+  --bg-black: #0a0906;
+  --bg-card: #111009;
+  --text-white: #f5f0e8;
+  --text-gray: #8a8070;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-ui: "Outfit", sans-serif;
+  --nav-h: 56px;
 
   /* ---- FLIP TUNING ----
      These must stay in sync with FLIP_DURATION_MS in app.js.
@@ -22,14 +22,17 @@
 }
 
 /* ---- RESET ---- */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
 }
 
-html, body {
+html,
+body {
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -54,14 +57,13 @@ button {
 /* Background 1 — diagonal pinstripe */
 .bg-1 {
   background-color: var(--bg-card);
-  background-image:
-    repeating-linear-gradient(
-      -52deg,
-      transparent 0px,
-      transparent 18px,
-      rgba(242, 169, 0, 0.055) 18px,
-      rgba(242, 169, 0, 0.055) 19px
-    );
+  background-image: repeating-linear-gradient(
+    -52deg,
+    transparent 0px,
+    transparent 18px,
+    rgba(242, 169, 0, 0.055) 18px,
+    rgba(242, 169, 0, 0.055) 19px
+  );
 }
 
 /* Background 2 — dark warm vignette */
@@ -71,8 +73,8 @@ button {
     radial-gradient(
       ellipse 110% 90% at 50% 50%,
       transparent 0%,
-      rgba(0,0,0,0.72) 65%,
-      rgba(0,0,0,0.95) 100%
+      rgba(0, 0, 0, 0.72) 65%,
+      rgba(0, 0, 0, 0.95) 100%
     ),
     radial-gradient(
       ellipse 65% 55% at 50% 52%,
@@ -128,22 +130,29 @@ button {
   transition: opacity 0.3s ease;
 }
 
-#global-nav.hidden  { display: none; }
-#global-nav.fading  { opacity: 0; pointer-events: none; }
+#global-nav.hidden {
+  display: none;
+}
+#global-nav.fading {
+  opacity: 0;
+  pointer-events: none;
+}
 
 /* Back button — thin elegant arrow matching the items hint style */
 .nav-btn {
   color: var(--gold);
   opacity: 0.55;
-  font-size: 1.4rem;       /* slightly larger for touch target */
-  font-weight: 300;        /* thin weight matches the → on items screen */
+  font-size: 1.4rem; /* slightly larger for touch target */
+  font-weight: 300; /* thin weight matches the → on items screen */
   padding: 8px 12px;
   transition: opacity 0.2s ease;
   line-height: 1;
   letter-spacing: -0.05rem;
 }
 
-.nav-btn:active { opacity: 1; }
+.nav-btn:active {
+  opacity: 1;
+}
 
 /* Use a proper thin arrow for back — override the HTML entity via font */
 #nav-back {
@@ -179,8 +188,8 @@ button {
     radial-gradient(
       ellipse 110% 90% at 50% 50%,
       transparent 0%,
-      rgba(0,0,0,0.72) 65%,
-      rgba(0,0,0,0.95) 100%
+      rgba(0, 0, 0, 0.72) 65%,
+      rgba(0, 0, 0, 0.95) 100%
     ),
     radial-gradient(
       ellipse 65% 55% at 50% 52%,
@@ -214,15 +223,15 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;   /* logo truly centered */
+  justify-content: center; /* logo truly centered */
   padding: 0 24px;
 }
 
-/* "Descubre nuestro menú" — absolutely positioned halfway between
+/* "Al tocar la pantalla" — absolutely positioned halfway between
    the top frame (≈18px from top) and the logo (≈35% from top) */
 .pulse-cta {
   position: absolute;
-  top: 12%;            /* sits between top frame and logo */
+  top: 12%; /* sits between top frame and logo */
   left: 0;
   right: 0;
   font-family: var(--font-ui);
@@ -231,7 +240,7 @@ button {
   letter-spacing: 0.22rem;
   color: var(--gold);
   text-align: center;
-  opacity: 0;                           /* JS drives this */
+  opacity: 0; /* JS drives this */
   transition: opacity 1.5s ease-in-out; /* duration of each fade */
 }
 
@@ -248,14 +257,13 @@ button {
   content: "";
   position: absolute;
   inset: -30% -20%;
-  background:
-    radial-gradient(
-      ellipse 75% 65% at 50% 52%,
-      rgba(210, 130, 10, 0.55) 0%,
-      rgba(160, 90, 5, 0.30) 35%,
-      rgba(100, 55, 3, 0.12) 60%,
-      transparent 80%
-    );
+  background: radial-gradient(
+    ellipse 75% 65% at 50% 52%,
+    rgba(210, 130, 10, 0.55) 0%,
+    rgba(160, 90, 5, 0.3) 35%,
+    rgba(100, 55, 3, 0.12) 60%,
+    transparent 80%
+  );
   pointer-events: none;
   z-index: 0;
 }
@@ -273,8 +281,8 @@ button {
 /* Tax note — absolute, right-aligned, 3/4 of the way to the bottom frame */
 .legal-footer {
   position: absolute;
-  bottom: 10%;           /* ≈3/4 of the way from logo to bottom frame */
-  right: 28px;           /* breathing room from right frame edge */
+  bottom: 10%; /* ≈3/4 of the way from logo to bottom frame */
+  right: 28px; /* breathing room from right frame edge */
   font-size: 0.6rem;
   color: var(--text-gray);
   opacity: 0.7;
@@ -292,13 +300,17 @@ button {
 
 #flip-transition.active {
   /* duration driven by --flip-dur, set by JS to stay in sync */
-  animation: flip-card var(--flip-dur) cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+  animation: flip-card var(--flip-dur) cubic-bezier(0.4, 0, 0.2, 1) forwards;
   transform-origin: center center;
 }
 
 @keyframes flip-card {
-  0%   { transform: rotateY(0deg); }
-  100% { transform: rotateY(360deg); }
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
 }
 
 /* ============================================================
@@ -319,7 +331,9 @@ button {
   scrollbar-width: none;
 }
 
-.categories-scroll::-webkit-scrollbar { display: none; }
+.categories-scroll::-webkit-scrollbar {
+  display: none;
+}
 
 .categories-grid {
   display: grid;
@@ -346,7 +360,9 @@ button {
   min-height: 0;
 }
 
-.category-card:active { border-color: var(--gold); }
+.category-card:active {
+  border-color: var(--gold);
+}
 
 .cat-photo {
   position: absolute;
@@ -358,7 +374,9 @@ button {
   transition: opacity 0.3s ease;
 }
 
-.category-card:active .cat-photo { opacity: 0.75; }
+.category-card:active .cat-photo {
+  opacity: 0.75;
+}
 
 .cat-placeholder {
   position: absolute;
@@ -375,9 +393,9 @@ button {
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(0,0,0,0.85) 0%,
-    rgba(0,0,0,0.3) 50%,
-    rgba(0,0,0,0.05) 100%
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.3) 50%,
+    rgba(0, 0, 0, 0.05) 100%
   );
 }
 
@@ -389,7 +407,7 @@ button {
   font-size: clamp(0.8rem, 3.2vw, 1rem);
   color: var(--text-white);
   line-height: 1.2;
-  text-shadow: 0 1px 6px rgba(0,0,0,0.9);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9);
 }
 
 /* ============================================================
@@ -409,7 +427,9 @@ button {
   scrollbar-width: none;
 }
 
-.snap-container::-webkit-scrollbar { display: none; }
+.snap-container::-webkit-scrollbar {
+  display: none;
+}
 
 .dish-view {
   width: 100%;
@@ -558,6 +578,6 @@ button {
   width: 1px;
   height: 1px;
   overflow: hidden;
-  clip: rect(0,0,0,0);
+  clip: rect(0, 0, 0, 0);
   white-space: nowrap;
 }
