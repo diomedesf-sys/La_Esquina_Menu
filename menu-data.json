@@ -310,6 +310,20 @@
           "image": "images/5_5_hamburguesa_pechuga_pollo.webp"
         },
         {
+          "id": "5_7",
+          "name": "Hamburguesa Smash Doble Clásica",
+          "description": "Extremadamente crujiente y dorada por fuera, pero sorprendentemente tierna y jugosa por dentro. Un verdadero homenaje al increíblemente versátil sabor del pollo.",
+          "price": 350,
+          "image": "images/5_7_hamburguesa_doble_smash.webp"
+        },
+        {
+          "id": "5_8",
+          "name": "Hamburguesa Smash Con Cebolla (Oklahoma)",
+          "description": "Extremadamente crujiente y dorada por fuera, pero sorprendentemente tierna y jugosa por dentro. Un verdadero homenaje al increíblemente versátil sabor del pollo.",
+          "price": 375,
+          "image": "images/5_8_hamburguesa_doble_smash_oklahoma.webp"
+        },
+	{
           "id": "5_6",
           "name": "Hamburguesa de Pollo Crispy",
           "description": "Extremadamente crujiente y dorada por fuera, pero sorprendentemente tierna y jugosa por dentro. Un verdadero homenaje al increíblemente versátil sabor del pollo.",
