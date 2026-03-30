@@ -83,7 +83,7 @@ var P2_GONE = 8000; // ms — phrase 2 has fully disappeared
 var SILENCE_2 = 150; // ms — no words on screen before phrase 1 returns
 
 // ---- RESET HOME CTA ----
-var CTA_PHRASES = ["AL TOCAR LA PANTALLA", "DESCUBRE NUESTRO MENÚ"];
+var CTA_PHRASES = ["DESCUBRE NUESTRO MENÚ", "AL PULSAR LA PANTALLA"];
 var ctaTimers = [];
 
 function resetHomeCta() {

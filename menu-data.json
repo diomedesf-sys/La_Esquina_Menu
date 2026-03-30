@@ -241,7 +241,7 @@
       "items": [
         {
           "id": "4_1",
-          "name": "Churrasco Angus 8oz",
+          "name": "Churrasco Angus 8 oz",
           "description": "Exquisito churrasco premium asado a las brasas. Su textura increíblemente tierna y jugosa se deshace en la boca, brindando un cálido abrazo ahumado.",
           "price": 1100,
           "image": "images/4_1_churrasco_angus.webp"
@@ -255,14 +255,14 @@
         },
         {
           "id": "4_3",
-          "name": "Picaña Angus 16 - 18oz",
+          "name": "Picaña Angus 16 - 18 oz",
           "description": "Majestuoso corte coronado por su dorada capa de grasa fundida. Extremadamente suculento, desborda jugos ahumados que celebran la auténtica maestría del fuego artesanal.",
           "price": 1100,
           "image": "images/4_3_picana_angus.webp"
         },
         {
           "id": "4_4",
-          "name": "Rib Eye 14 - 16oz",
+          "name": "Rib Eye 14 - 16 oz",
           "description": "Manjar de vetas infinitas. Un corte suntuoso y mantecoso que estalla de jugosidad en cada bocado, ofreciendo una experiencia gourmet profundamente reconfortante.",
           "price": 1450,
           "image": "images/4_4_rib_eye.webp"
@@ -283,7 +283,7 @@
         },
         {
           "id": "5_2",
-          "name": "Hamburguesa Angus 8oz Bacon & Cheese",
+          "name": "Hamburguesa Angus 8 oz Bacon & Cheese",
           "description": "Suculenta Angus bañada en cheddar fundido y coronada con tocineta extra-crujiente. El exquisito pan abraza este festín humeante, pecaminoso y absolutamente reconfortante.",
           "price": 490,
           "image": "images/5_2_hamburguesa_angus_8_onzas_bacon_&_cheese.webp"
@@ -315,20 +315,6 @@
           "description": "Extremadamente crujiente y dorada por fuera, pero sorprendentemente tierna y jugosa por dentro. Un verdadero homenaje al increíblemente versátil sabor del pollo.",
           "price": 390,
           "image": "images/5_6_hamburguesa_pollo_crispy.webp"
-        }
-        {
-          "id": "5_7",
-          "name": "Hamburguesa Smash Doble Clásica",
-          "description": "Extremadamente crujiente y dorada por fuera, pero sorprendentemente tierna y jugosa por dentro. Un verdadero homenaje al increíblemente versátil sabor del pollo.",
-          "price": 350,
-          "image": "images/5_7_hamburguesa_doble_smash.webp"
-        }
-        {
-          "id": "5_8",
-          "name": "Hamburguesa Smash Con Cebolla (Oklahoma)",
-          "description": "Extremadamente crujiente y dorada por fuera, pero sorprendentemente tierna y jugosa por dentro. Un verdadero homenaje al increíblemente versátil sabor del pollo.",
-          "price": 375,
-          "image": "images/5_8_hamburguesa_doble_smash_oklahoma.webp"
         }
       ],
       "categoryImage": "images/cat_5_hamburguesas.webp"
@@ -394,11 +380,11 @@
           "image": "images/7_2_mofongo_de_camarones.webp"
         },
         {
-          "id": "7_3",
+         "id": "7_3",
           "name": "Mofongo Mixto",
           "description": "Crujiente plátano que esconde un jugoso tesoro de carnes tiernas. Una explosión de texturas y sabores rústicos que celebran la auténtica cocina criolla.",
           "price": 490,
-          "image": "images/7_3_mofongo_mixto.webp"
+          "image": "images/7_3_mofongo_mixto.webp" 
         }
       ],
       "categoryImage": "images/cat_7_mofongos.webp"
